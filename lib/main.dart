@@ -21,6 +21,7 @@ class MyHomePage extends StatefulWidget {
 
   final String title;
   final FlutterBlue flutterBlue = FlutterBlue.instance;
+  //final flutterReactiveBle = FlutterReactiveBle();
   final List<BluetoothDevice> devicesList = new List<BluetoothDevice>();
   final Map<Guid, List<int>> readValues = new Map<Guid, List<int>>();
 
@@ -82,9 +83,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () async {
+                  print('made it to the connect button');
                   widget.flutterBlue.stopScan();
+                  print('made it past stopScan');
                   try {
                     await device.connect();
+                    print('made it past connect');
                   } catch (e) {
                     if (e.code != 'already_connected') {
                       throw e;
@@ -271,10 +275,11 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text(widget.title),
-    ),
-    body: _buildView(),
-  );
+  Widget build(BuildContext context) =>
+      Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: _buildView(),
+      );
 }
